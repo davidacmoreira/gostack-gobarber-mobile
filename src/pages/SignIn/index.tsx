@@ -6,6 +6,7 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -24,6 +25,8 @@ import {
 } from './styles';
 
 const SignIn: React.FC = () => {
+  const navigation = useNavigation();
+
   return (
     <>
       <KeyboardAvoidingView
@@ -53,15 +56,15 @@ const SignIn: React.FC = () => {
             </Button>
 
             <ForgotPassword onPress={() => console.log('ok')}>
-              <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
+              <ForgotPasswordText>Forgot password</ForgotPasswordText>
             </ForgotPassword>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
 
-      <CreateAccountButton onPress={() => console.log('ok')}>
+      <CreateAccountButton onPress={() => navigation.navigate('SignUp')}>
         <Icon name="log-in" size={20} color="#ff9000" />
-        <CreateAccountButtonText>Criar conta</CreateAccountButtonText>
+        <CreateAccountButtonText>Create account</CreateAccountButtonText>
       </CreateAccountButton>
     </>
   );
