@@ -60,7 +60,7 @@ const DashBoard: React.FC = () => {
       <Container>
         <Header>
           <HeaderTitle>
-            Seja bem vindo, {'\n'}
+            Welcome, {'\n'}
             <UserName>{user.name}</UserName>
           </HeaderTitle>
 
