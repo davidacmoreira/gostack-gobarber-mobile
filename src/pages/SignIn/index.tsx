@@ -45,33 +45,36 @@ const SignIn: React.FC = () => {
 
   const { signIn } = useAuth();
 
-  const handleSignIn = useCallback(async (data: SignInFormData) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSignIn = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        email: Yup.string().required('E-mail empty').email('E-mail invalid'),
-        password: Yup.string().required('Password empty'),
-      });
+        const schema = Yup.object().shape({
+          email: Yup.string().required('E-mail empty').email('E-mail invalid'),
+          password: Yup.string().required('Password empty'),
+        });
 
-      await schema.validate(data, { abortEarly: false });
+        await schema.validate(data, { abortEarly: false });
 
-      await signIn({
-        email: data.email,
-        password: data.password,
-      });
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
 
-        formRef.current?.setErrors(errors);
+          formRef.current?.setErrors(errors);
 
-        return;
+          return;
+        }
+
+        Alert.alert('Error SignIn', 'Error SignIn, check credentials');
       }
-
-      Alert.alert('Error SignIn', 'Error SignIn, check credentials');
-    }
-  }, []);
+    },
+    [signIn],
+  );
 
   return (
     <>
